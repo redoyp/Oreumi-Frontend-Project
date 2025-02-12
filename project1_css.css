@@ -1,0 +1,22 @@
+.navigator {
+  margin: 25px;
+  background-color: lightblue;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.logo {
+  margin-left: 25px;
+}
+
+.name {
+  font-family: "Noto Sans KR", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 4px;
+  font-size: 25px;
+  text-decoration: none;
+  color: black;
+}
