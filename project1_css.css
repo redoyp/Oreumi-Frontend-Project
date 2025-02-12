@@ -20,3 +20,20 @@
   text-decoration: none;
   color: black;
 }
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+.menu div {
+  font-family: "Noto Sans KR", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  padding: 8px 15px;
+  letter-spacing: 1px;
+  font-size: 15px;
+  text-decoration: none;
+  color: black;
+}
