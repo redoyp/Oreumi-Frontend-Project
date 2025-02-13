@@ -53,17 +53,17 @@
   height: 100%;
   position: absolute;
   top: 0;
-  left: 100%;
+  left: 100%;  /* 모든 이미지를 화면 오른쪽에 대기 */
   opacity: 0;
-  transition: left 0.7s ease-in-out, opacity 0.7s ease-in-out;
+  transition: left 1s ease-in-out, opacity 1s ease-in-out;
 }
 
 .mainPicture img.active {
-  left: 0;
-  opacity: 1;
+  left: 0;  /* 화면 중앙으로 이동 */
+  opacity: 1;  /* 화면에 나타남 */
 }
 
 .mainPicture img.next {
-  left: 100%;
-  opacity: 1;
+  left: 100%;  /* 다시 화면 오른쪽으로 이동 */
+  opacity: 1;  /* 보이게 됨 */
 }
