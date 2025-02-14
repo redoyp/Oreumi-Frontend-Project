@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     currentIndex = nextIndex;
   }
 
-  setInterval(showNextSlide, 5000);
+  setInterval(showNextSlide, 6000);
 });
 
 
@@ -31,23 +31,44 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchBtn = document.querySelector(".search");
   const mainPicture = document.querySelector(".mainPicture");
 
-  function toggleOverlay(showSearch) {
-    const isTransparent = mainPicture.classList.contains("transparent");
+  const searchBox = document.querySelector(".searchBox");
+  const aboutBox = document.querySelector(".aboutBox");
 
-    if (isTransparent) {
-      // 투명화 해제 (애니메이션 추가)
-      mainPicture.classList.remove("transparent");
+
+  let currentMode = null; // 현재 활성화된 모드 (null, "search", "about")
+
+  function showMenu(mode) {
+    if (currentMode === mode) {
+      // 현재 상태에서 같은 버튼을 한 번 더 누르면 투명화 해제
+      mainPicture.classList.remove("invisible");
       mainPicture.classList.add("visible");
 
       setTimeout(() => {
-        mainPicture.classList.remove("visible"); // 원래 상태로
-      }, 500); // 투명화 해제 애니메이션 지속시간
+        mainPicture.classList.remove("visible");
+        searchBox.classList.remove("active");
+        aboutBox.classList.remove("active");
+      }, 500);
+
+      currentMode = null; // 모드 초기화
     } else {
-      // 투명화 적용 및 해당 요소 표시
-      mainPicture.classList.add("transparent");
+      // 다른 모드를 누른 경우, 새 모드 적용
+      mainPicture.classList.remove("visible");
+      mainPicture.classList.add("invisible");
+
+      setTimeout(() => {
+        if (mode === "search") {
+          searchBox.classList.add("active");
+          aboutBox.classList.remove("active");
+        } else {
+          aboutBox.classList.add("active");
+          searchBox.classList.remove("active");
+        }
+      }, 300); // 투명화가 적용된 후 컨텐츠 표시
+
+      currentMode = mode; // 현재 모드 업데이트
     }
   }
 
-  searchBtn.addEventListener("click", () => toggleOverlay(true));
-  aboutBtn.addEventListener("click", () => toggleOverlay(false));
+  searchBtn.addEventListener("click", () => showMenu("search"));
+  aboutBtn.addEventListener("click", () => showMenu("about"));
 });

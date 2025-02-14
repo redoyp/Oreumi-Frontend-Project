@@ -45,15 +45,20 @@
   text-decoration: underline;
 }
 
-/* 슬라이드 css */
-.mainPicture {
-  width: 95vw;
+.mainContent {
+  width: 92vw;
   height: 70vh;
   background-size: cover;
   background-position: center;
   margin:0 auto;
   position: relative;
   overflow: hidden;
+}
+
+/* 슬라이드 css */
+.mainPicture {
+  width: 100%;
+  height: 100%;
 }
 
 .mainPicture img {
@@ -76,8 +81,8 @@
   opacity: 1;  /* 보이게 됨 */
 }
 
-/* search about 눌렀을 때 mainPicture 투명해지는 효과 */
-.mainPicture.transparent {
+/* search about 눌렀을 때 mainPicture 투명해지는 효과 관련*/
+.mainPicture.invisible {
   opacity: 0.5;
   transition: opacity 0.5s ease-in-out;
 }
@@ -85,4 +90,35 @@
 .mainPicture.visible {
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
+}
+
+.visibleBox {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.81);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  width: 30%;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.visibleBox.active {
+  display: block;
+}
+
+#subject {
+  font-size: 21px;
+}
+
+#content {
+  font-size: 18px;
+}
+
+#introduce {
+  font-size: 12px;
 }
