@@ -1,12 +1,30 @@
 /* 슬라이드 js */
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  const slides = document.querySelectorAll(".slide");
-
+  const mainPicture = document.querySelector(".mainPicture");
+  let slides = [];
   let currentIndex = 0;
 
+  // JSON 파일에서 이미지 목록 불러오기
+  fetch("./images.json")
+    .then((response) => response.json())
+    .then((data) => {
+      slides = data.images.map((src, index) => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.classList.add("slide");
+        if (index === 0) img.classList.add("active");
+        mainPicture.appendChild(img);
+        return img;
+      });
+
+      setInterval(showNextSlide, 6000);
+    })
+    .catch((error) => console.error("JSON 로드 오류:", error));
+
   function showNextSlide() {
+    if (slides.length === 0) return;
+
     const currentSlide = slides[currentIndex];
     const nextIndex = (currentIndex + 1) % slides.length;
     const nextSlide = slides[nextIndex];
@@ -19,9 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     currentIndex = nextIndex;
   }
-
-  setInterval(showNextSlide, 6000);
 });
+
 
 
 /* search about 눌렀을 때 투명화 */
