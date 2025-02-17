@@ -1,4 +1,4 @@
-/* 슬라이드 js */
+// 슬라이드 js
 
 document.addEventListener("DOMContentLoaded", () => {
   const mainPicture = document.querySelector(".mainPicture");
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-/* search about 눌렀을 때 투명화 */
+// search about 눌렀을 때 투명화
 
 document.addEventListener("DOMContentLoaded", () => {
   const aboutBtn = document.querySelector(".about");
@@ -89,3 +89,54 @@ document.addEventListener("DOMContentLoaded", () => {
   searchBtn.addEventListener("click", () => showMenu("search"));
   aboutBtn.addEventListener("click", () => showMenu("about"));
 });
+
+
+
+// 갤러리
+
+async function loadImages() {
+  try {
+    const response = await fetch("./images.json");
+    const data = await response.json();
+    const gallery = document.getElementById("gallery");
+
+    data.images.forEach(imagePath => {
+      const imageBox = document.createElement("div");
+      imageBox.classList.add("image-box");
+
+      const img = document.createElement("img");
+      img.src = imagePath;
+      img.alt = extractTitle(imagePath);
+
+      const title = document.createElement("p");
+      title.classList.add("title");
+      title.textContent = extractTitle(imagePath);
+
+      const location = document.createElement("p");
+      location.classList.add("location");
+      location.textContent = extractLocation(imagePath);
+
+      imageBox.appendChild(img);
+      imageBox.appendChild(title);
+      imageBox.appendChild(location);
+      gallery.appendChild(imageBox);
+    });
+
+  } catch (error) {
+    console.error("이미지를 불러오는 중 오류 발생:", error);
+  }
+}
+
+// 파일명에서 '이름' 추출 (예: "경복궁")
+function extractTitle(imagePath) {
+  const filename = imagePath.split("/").pop().replace(".jpg", "");
+  return filename.split("_")[1]; // "_" 기준으로 두 번째 요소 (이름)
+}
+
+// 파일명에서 '지역' 추출 (예: "서울")
+function extractLocation(imagePath) {
+  const filename = imagePath.split("/").pop().replace(".jpg", "");
+  return filename.split("_")[0]; // "_" 기준으로 첫 번째 요소 (지역)
+}
+
+loadImages();
