@@ -92,40 +92,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// 갤러리
+// 갤러리 (스크롤 시 20개씩 로드)
+let allImages = []; // 전체 이미지 배열
+let loadedImages = 0; // 현재 로드된 이미지 개수
+const imagesPerLoad = 20; // 한 번에 로드할 이미지 개수
+const gallery = document.getElementById("gallery");
 
-async function loadImages() {
+// json 에서 이미지 목록 불러오기
+async function fetchImages() {
   try {
     const response = await fetch("./images.json");
     const data = await response.json();
-    const gallery = document.getElementById("gallery");
-
-    data.images.forEach(imagePath => {
-      const imageBox = document.createElement("div");
-      imageBox.classList.add("image-box");
-
-      const img = document.createElement("img");
-      img.src = imagePath;
-      img.alt = extractTitle(imagePath);
-
-      const title = document.createElement("p");
-      title.classList.add("title");
-      title.textContent = extractTitle(imagePath);
-
-      const location = document.createElement("p");
-      location.classList.add("location");
-      location.textContent = extractLocation(imagePath);
-
-      imageBox.appendChild(img);
-      imageBox.appendChild(title);
-      imageBox.appendChild(location);
-      gallery.appendChild(imageBox);
-    });
-
+    allImages = data.images;
+    loadedImages = 0; // 초기화
+    gallery.innerHTML = ""; // 기존 이미지 초기화
+    loadMoreImages(); // 처음 20개 로드
   } catch (error) {
     console.error("이미지를 불러오는 중 오류 발생:", error);
   }
 }
+
+// 20개씩 이미지 추가 로드
+function loadMoreImages() {
+  const nextImages = allImages.slice(loadedImages, loadedImages + imagesPerLoad);
+
+  nextImages.forEach(imagePath => {
+    const imageBox = document.createElement("div");
+    imageBox.classList.add("image-box");
+
+    const img = document.createElement("img");
+    img.src = imagePath;
+
+    const title = document.createElement("p");
+    title.classList.add("title");
+    title.textContent = extractTitle(imagePath);
+
+    const location = document.createElement("p");
+    location.classList.add("location");
+    location.textContent = extractLocation(imagePath);
+
+    imageBox.appendChild(img);
+    imageBox.appendChild(title);
+    imageBox.appendChild(location);
+    gallery.appendChild(imageBox);
+
+    // 이미지가 로드된 후 애니메이션 클래스를 추가
+    img.onload = () => {
+      imageBox.classList.add("visible");
+    };
+  });
+
+  loadedImages += imagesPerLoad;
+}
+
+// 스크롤 이벤트 감지 (끝까지 내렸을 때 추가 로드)
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+    if (loadedImages < allImages.length) {
+      loadMoreImages();
+    }
+  }
+});
 
 // 파일명에서 '이름' 추출 (예: "경복궁")
 function extractTitle(imagePath) {
@@ -139,4 +166,5 @@ function extractLocation(imagePath) {
   return filename.split("_")[0]; // "_" 기준으로 첫 번째 요소 (지역)
 }
 
-loadImages();
+fetchImages(); // 초기 실행
+

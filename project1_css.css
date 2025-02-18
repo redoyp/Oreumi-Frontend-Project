@@ -47,7 +47,7 @@
 
 .mainContent {
   width: 94vw;
-  height: 70vh;
+  height: 75vh;
   background-size: cover;
   background-position: center;
   margin:0 auto;
@@ -184,11 +184,20 @@
   justify-content: center;
   margin: 0 auto;
   margin-top: 30px;
+  margin-bottom: 60px;
 }
 
 .image-box {
   border: none;
   padding: 20px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.image-box.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .image-box img {
