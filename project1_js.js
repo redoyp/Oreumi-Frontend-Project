@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentIndex = 0;
 
   // JSON 파일에서 이미지 목록 불러오기
-  fetch("./images.json")
+  fetch("./slide.json")
     .then((response) => response.json())
     .then((data) => {
       slides = data.images.map((src, index) => {
