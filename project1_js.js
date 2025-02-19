@@ -168,3 +168,40 @@ function extractLocation(imagePath) {
 
 fetchImages(); // 초기 실행
 
+
+
+// 모달창
+const modal = document.getElementById("imageModal");
+const modalImage = document.getElementById("modalImage");
+const modalTitle = document.getElementById("modalTitle");
+const modalLocation = document.getElementById("modalLocation");
+const close = document.querySelector(".close");
+
+// 갤러리 이미지 클릭 시 모달 표시
+gallery.addEventListener("click", (event) => {
+  // 클릭된 요소의 가장 가까운 ".image-box" 찾기
+  const imageBox = event.target.closest(".image-box");
+  if (!imageBox) return; // 클릭된 요소가 이미지 박스가 아니면 종료
+
+  const img = imageBox.querySelector("img"); // 이미지 태그
+  const title = imageBox.querySelector(".title").textContent; // 제목
+  const location = imageBox.querySelector(".location").textContent; // 지역
+
+  modalImage.src = img.src;
+  modalTitle.textContent = title;
+  modalLocation.textContent = location;
+
+  modal.style.display = "flex";
+});
+
+// 닫기 버튼 클릭 시 모달 닫기
+close.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+// 모달 바깥 부분 클릭 시 닫기
+window.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
