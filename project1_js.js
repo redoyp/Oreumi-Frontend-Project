@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 갤러리 (스크롤 시 20개씩 로드)
 let allImages = []; // 전체 이미지 배열
+let filteredImages = []; // 필터링된 이미지 배열 (지역별 검색)
 let loadedImages = 0; // 현재 로드된 이미지 개수
 const imagesPerLoad = 20; // 한 번에 로드할 이미지 개수
 const gallery = document.getElementById("gallery");
@@ -104,17 +105,32 @@ async function fetchImages() {
     const response = await fetch("./images.json");
     const data = await response.json();
     allImages = data.images;
+    filteredImages = allImages;
     loadedImages = 0; // 초기화
     gallery.innerHTML = ""; // 기존 이미지 초기화
-    loadMoreImages(); // 처음 20개 로드
+    loadMoreImages();
   } catch (error) {
     console.error("이미지를 불러오는 중 오류 발생:", error);
   }
 }
 
+// 지역명으로 필터링된 이미지 로드
+function searchByRegion(region) {
+  if (region.trim() === "") {
+    filteredImages = allImages; // 검색어가 비어 있으면 전체 이미지로 초기화
+  } else {
+    // 지역명으로 필터링 (파일명에서 지역명을 추출하여 비교)
+    filteredImages = allImages.filter(imagePath => extractLocation(imagePath).includes(region));
+  }
+
+  loadedImages = 0; // 초기화
+  gallery.innerHTML = ""; // 기존 이미지 초기화
+  loadMoreImages();
+}
+
 // 20개씩 이미지 추가 로드
 function loadMoreImages() {
-  const nextImages = allImages.slice(loadedImages, loadedImages + imagesPerLoad);
+  const nextImages = filteredImages.slice(loadedImages, loadedImages + imagesPerLoad);
 
   nextImages.forEach(imagePath => {
     const imageBox = document.createElement("div");
@@ -148,7 +164,7 @@ function loadMoreImages() {
 // 스크롤 이벤트 감지 (끝까지 내렸을 때 추가 로드)
 window.addEventListener("scroll", () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-    if (loadedImages < allImages.length) {
+    if (loadedImages < filteredImages.length) {
       loadMoreImages();
     }
   }
@@ -157,14 +173,28 @@ window.addEventListener("scroll", () => {
 // 파일명에서 '이름' 추출 (예: "경복궁")
 function extractTitle(imagePath) {
   const filename = imagePath.split("/").pop().replace(".jpg", "");
-  return filename.split("_")[1]; // "_" 기준으로 두 번째 요소 (이름)
+  return filename.split("_")[1];
 }
 
 // 파일명에서 '지역' 추출 (예: "서울")
 function extractLocation(imagePath) {
   const filename = imagePath.split("/").pop().replace(".jpg", "");
-  return filename.split("_")[0]; // "_" 기준으로 첫 번째 요소 (지역)
+  return filename.split("_")[0];
 }
+
+// search 버튼 클릭 시 지역 검색
+document.querySelector(".searchButton").addEventListener("click", () => {
+  const searchPlace = document.querySelector(".searchPlace").value.trim();
+  searchByRegion(searchPlace); // 지역 검색 함수 호출
+});
+
+// Enter 키 입력 시 지역 검색
+document.querySelector(".searchPlace").addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    const searchPlace = document.querySelector(".searchPlace").value.trim();
+    searchByRegion(searchPlace); // 지역 검색 함수 호출
+  }
+});
 
 fetchImages(); // 초기 실행
 
