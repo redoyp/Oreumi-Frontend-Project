@@ -9,55 +9,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-<hr/>
+  <hr/>
 
 
-<header>
-  <nav class="navigator">
-    <div class="logo">
-      <a href="" class="name">이동엽</a>
-    </div>
-    <div class="menu">
-      <button class="about">about</button>
-      <button class="search">search</button>
-    </div>
-  </nav>
-</header>
+  <header>
+    <nav class="navigator">
+      <div class="logo">
+        <a href="" class="name">이동엽</a>
+      </div>
+      <div class="menu">
+        <button class="about">about</button>
+        <button class="search">search</button>
+      </div>
+    </nav>
+  </header>
 
 
-<main>
-  <section class="mainContent">
-    <div class="mainPicture"></div>
+  <main>
+    <section class="mainContent">
+      <div class="mainPicture"></div>
 
-    <section class="visibleBox aboutBox">
-      <p id="subject"><strong>세계 유명 여행지 갤러리</strong></p>
-      <p id="content">전 세계의 유명 여행지의 풍경 사진을 모아둔 갤러리입니다</p>
-      <p id="introduce">백엔드 개발자 이동엽입니다. 웹 페이지가 다소 어색해 보일 수 있지만 좋게 봐주시면 감사하겠습니다</p>
+      <section class="visibleBox aboutBox">
+        <p id="subject"><strong>세계 유명 여행지 갤러리</strong></p>
+        <p id="content">전 세계의 유명 여행지의 풍경 사진을 모아둔 갤러리입니다</p>
+        <p id="introduce">백엔드 개발자 이동엽입니다. 웹 페이지가 다소 어색해 보일 수 있지만 좋게 봐주시면 감사하겠습니다</p>
+      </section>
+
+      <section class="visibleBox searchBox">
+        <input type="text" class="searchPlace" placeholder="가고 싶은 여행지를 입력하세요">
+        <button class="searchButton" type="submit">
+          <img src="img/search.png" id="searchIcon">
+        </button>
+      </section>
     </section>
 
-    <section class="visibleBox searchBox">
-      <input type="text" class="searchPlace" placeholder="가고 싶은 여행지를 입력하세요">
-      <button class="searchButton" type="submit">
-        <img src="img/search.png" id="searchIcon">
-      </button>
-    </section>
-  </section>
+    <section class="gallery" id="gallery"></section>
 
-  <section class="gallery" id="gallery"></section>
-
-  <article id="imageModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span> <!-- 닫기 버튼(&times 는 창의 x버튼 엔티티) -->
-      <img id="modalImage" src="" alt="선택한 이미지">
-      <p id="modalTitle" class="title"></p>
-      <p id="modalLocation" class="location"></p>
-    </div>
-  </article>
-</main>
+    <article id="imageModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span> <!-- 닫기 버튼(&times 는 창의 x버튼 엔티티) -->
+        <img id="modalImage" src="" alt="선택한 이미지">
+        <p id="modalTitle" class="title"></p>
+        <p id="modalLocation" class="location"></p>
+      </div>
+    </article>
+  </main>
 
 
-<footer id="bottom"></footer>
+  <footer id="bottom"></footer>
 
-<script src="./project1_js.js"></script>
+  <script src="./project1_js.js"></script>
 </body>
 </html>

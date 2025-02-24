@@ -184,7 +184,6 @@
   justify-content: center;
   margin: 0 auto;
   margin-top: 30px;
-  margin-bottom: 40px;
 }
 
 .image-box {
@@ -257,4 +256,8 @@
   font-size: 30px;
   cursor: pointer;
   color: #333;
+}
+
+#bottom {
+  height: 80px;
 }
