@@ -1,11 +1,14 @@
 {
   "images": [
     "img/seoul/서울_경복궁.jpg",
-    "img/seoul/서울_광화문광장.jpg",
-    "img/seoul/서울_남산서울타워.jpg",
-    "img/seoul/서울_롯데월드타워.jpg",
     "img/seoul/서울_북촌한옥마을.jpg",
-    "img/seoul/서울_선릉.jpg",
-    "img/seoul/서울_창덕궁.jpg"
+    "img/london/런던_버킹엄궁전.jpg",
+    "img/london/런던_타워브리지.jpg",
+    "img/newyork/뉴욕_자유의 여신상.jpg",
+    "img/newyork/뉴욕_타임스퀘어.jpg",
+    "img/tokyo/도쿄_센소지.jpg",
+    "img/tokyo/도쿄_지브리 미술관.jpg",
+    "img/paris/파리_베르사유 궁전.jpg",
+    "img/paris/파리_루브르 박물관.jpg"
   ]
 }
